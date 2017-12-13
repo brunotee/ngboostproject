@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Mon premier ngBlog !!</title> 
+        <script src="node_modules/angular/angular.min.js"></script>
+        <script src="app/app.js"></script>
+        <script src="app/article.factory.js"></script>
+        <script src="app/article.service.js"></script>
+        <script src="app/login.controller.js"></script>
+        <script src="app/blog.controller.js"></script>
+        <link rel="stylesheet" href="app/app.css"/>
+
+
+    </head>
+    <body ng-app="ngblog">
+
+        <div id="login" ng-controller="LoginController as loginCtrl" ng-show="loginCtrl.visible">
+            <label>Nom d'utilisteur</label>
+            <input ng-model="loginCtrl.username" name=""/>
+            <button  ng-click="loginCtrl.validateUserName()">Modifier</button>
+        </div>
+        <div id="blog" ng-controller="BlogController as blogCtrl" ng-hide="!blogCtrl.listVisible && !blogCtrl.formVisible">
+            <h1>Bienvenue sur le Blog Bushcraft</h1>
+
+            <a href="" ng-click="blogCtrl.displayArticleForm(true)">Ajouter un article</a>
+
+            <div id="articles" ng-show="blogCtrl.listVisible" >
+
+                <div class="article" ng-repeat="article in blogCtrl.articles">
+
+                    <h2>  {{article.title}}</h2>
+                    <img src="app/asset/icone_1.GIF" ng-click="blogCtrl.deleteArticle(article.id)"/>
+                    <p> {{article.description}}</p>   
+                </div>
+                
+                </div>
+            
+            <div id="article-form" ng-show="blogCtrl.formVisible">
+                    <h2>Nouvel Article</h2>
+                    <form ng-submit="blogCtrl.validateArticleForm($event)">
+                        <div id="titleWrapper">
+                            <label>Titre</label>
+                            <input id="title" name="title" type="text"/>
+                        </div>
+                        <div id="textWrapper">
+                            <label>Contenu</label>
+                            <textarea id="descr" name="descr" ng-model="blogCtrl.newArticle.description"></textarea>
+                        </div>
+                        <button ng-click="bloCtrl.displayArticleForm(false)" type="button">Annuler</button>
+                        <button>Soumettre </button>
+                        
+                    </form>
+                </div>
+            </div>
+
+    </body>
+</html>
